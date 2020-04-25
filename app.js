@@ -41,7 +41,7 @@ citiesReklama5.forEach(cityID => {
             oglas.price = parseInt($(this).find('.text-left.text-success').text().replace('.', ''));
     
             // Check conditions
-            if(oglas.price < 20000 && oglas.price > 10000) {
+            if(oglas.price < 35000 && oglas.price > 10000) {
                 // Add feed
                 feed.addItem({
                     title: oglas.title + " - " + oglas.date,
@@ -76,7 +76,7 @@ citiesPazar3.forEach(function(cityID) {
             oglas.price = parseInt($(this).find('.title .list-price').text().replace(' ', ''));
     
             // Check conditions
-            if(oglas.price < 20000 && oglas.price > 10000) {
+            if(oglas.price < 35000 && oglas.price > 10000) {
                 // Add feed
                 feed.addItem({
                     title: oglas.title + " - " + oglas.date,
