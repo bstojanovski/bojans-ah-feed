@@ -28,7 +28,7 @@ let citiesReklama5 = [305, 14];
 
 // Reklama5 requests
 citiesReklama5.forEach(cityID => {
-    request({method: 'GET', url: 'http://www.reklama5.mk/Search?q=&city='+ cityID +'&sell=0&sell=1&buy=0&rent=0&includeforrent=0&trade=0&trade=1&includeOld=0&includeOld=1&includeNew=0&includeNew=1&f45_from=&f45_to=&f46_from=&f46_to=&priceFrom=10000&priceTo=30000&f48_from=&f48_to=&f47=&f10029=&f10030=&f10040=&private=0&company=0&page=1&SortByPrice=0&zz=1&cat=159'}, (err, res, body) => {
+    request({method: 'GET', url: 'http://www.reklama5.mk/Search?q=&city='+ cityID +'&sell=0&sell=1&buy=0&rent=0&includeforrent=0&trade=0&trade=1&includeOld=0&includeOld=1&includeNew=0&includeNew=1&f45_from=&f45_to=&f46_from=&f46_to=&priceFrom=10000&priceTo=35000&f48_from=&f48_to=&f47=&f10029=&f10030=&f10040=&private=0&company=0&page=1&SortByPrice=0&zz=1&cat=159'}, (err, res, body) => {
         if (err) return console.error(err);
         let $ = cheerio.load(body);
         let data = $('.OglasResults');
@@ -63,7 +63,7 @@ let citiesPazar3 = ["ohrid", "struga"];
 
 // Reklama5 requests
 citiesPazar3.forEach(function(cityID) {
-    request({method: 'GET', url: 'https://www.pazar3.mk/oglasi/zivealista/stanovi/se-prodava/'+ cityID +'?PriceFrom=10000&PriceTo=20000'}, (err, res, body) => {
+    request({method: 'GET', url: 'https://www.pazar3.mk/oglasi/zivealista/stanovi/se-prodava/'+ cityID +'?PriceFrom=10000&PriceTo=35000'}, (err, res, body) => {
         if (err) return console.error(err);
         let $ = cheerio.load(body);
         let data = $('.row-listing');
