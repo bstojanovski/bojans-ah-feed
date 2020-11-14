@@ -22,6 +22,7 @@ const promiseReklama5 = new Promise((resolve, reject) => {
             $(data).each(function() {
                 let url = 'https://www.reklama5.mk' + $(this).find('.text-left.text-info a').attr('href');
                 let date = $(this).find('.adDate').text();
+                date = date.substring(0, 6) + '. ' + date.substring(6);
                 let title = $(this).find('.SearchAdTitle').text().substr(1);
                 let price = parseInt($(this).find('.text-left.text-success').text().replace('.', ''));
                 const oglas = new Oglas(url, date, title, price);
