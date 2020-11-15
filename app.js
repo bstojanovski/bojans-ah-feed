@@ -20,13 +20,26 @@ const feed = new Feed({
     }
 });
 
+scraps = [];
+let citiesReklama5 = [305, 14];
+let citiesPazar3 = ['ohrid', 'struga'];
+let priceRange = {from: 10000, to: 35000};
+
+citiesPazar3.forEach(function(city) {
+    scraps.push(scrapePazar3(city, priceRange));
+});
+
+citiesReklama5.forEach(function(city) {
+    scraps.push(scrapeReklama5(city, priceRange));
+});
+
 // Build the RSS feed
-[scrapePazar3, scrapeReklama5].forEach(function(promise) {
+scraps.forEach(function(promise) {
     promise
         .then((data) => {
             data.forEach(oglas => {
                 titleFormatted = (oglas.title + " - " + oglas.date + " - " + oglas.price + "€");
-
+    
                 feed.addItem({
                     title: titleFormatted.replace(/(\r\n|\n|\r)/gm,""),
                     link: oglas.url,
@@ -38,7 +51,7 @@ const feed = new Feed({
         .catch((e) => {
             console.log(e);
         });
-})
+});
 
 app.get('/', (req, res) => res.set('Content-Type', 'application/rss+xml').send(feed.rss2()));
 app.listen(port, () => console.log('The feed is up and running on http://localhost:' + port));
