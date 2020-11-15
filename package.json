@@ -13,6 +13,7 @@
     "express": "^4.17.1",
     "feed": "^4.0.0",
     "request": "^2.88.2",
+    "request-promise": "^4.2.6",
     "xml-js": "^1.6.11"
   }
 }
