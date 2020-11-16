@@ -28,8 +28,14 @@ async function scrapePazar3(cityID, priceRange) {
                 matches.push(oglas);
             }
         });
-        
-        return matches.slice(0, 5);
+
+        let sliceNumber = 3;
+
+        if(cityID == 'ohrid') {
+            sliceNumber = 7;
+        }
+
+        return matches.slice(0, sliceNumber);
     } catch (error) {
         console.log(error);
     }

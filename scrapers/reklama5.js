@@ -32,7 +32,13 @@ async function scrapeReklama5(cityID, priceRange) {
                 matches.push(oglas);
             }
         });
-        
+
+        let sliceNumber = 3;
+
+        if(cityID == 305) {
+            sliceNumber = 7;
+        }
+
         return matches.slice(0, 3);
     } catch (error) {
         console.log(error);
