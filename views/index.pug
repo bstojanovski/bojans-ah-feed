@@ -1,0 +1,13 @@
+html
+  head
+    meta(content="width=device-width, initial-scale=1", name="viewport")
+    link(rel='stylesheet', href='/style.css', type='text/css' )
+    title= title
+  body
+    ul
+        each oglas in scraps
+            li
+                a(href=oglas.url)
+                    h3= oglas.title
+                    span= oglas.date
+                    h4= oglas.price + "€"

@@ -1,0 +1,40 @@
+body {
+    font-family: system-ui;
+}
+
+body ul {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 32px;
+    margin: 0;
+    padding: 0;
+}
+
+body ul li {
+    list-style: none;
+    padding: 12px;
+}
+
+body ul li:hover {
+    background-color: #dadada;
+}
+
+body ul li a {
+    color: #333;
+    text-decoration: none;
+}
+
+body ul li a h3,
+body ul li a h4 {
+    margin: 0;
+}
+
+@media screen and (max-width: 480px) {
+    body ul {
+        display: block;
+    }
+    
+    body ul li {
+        border-bottom: 1px solid #dadada;
+    }
+}

@@ -21,15 +21,19 @@ async function scrapeReklama5(cityID, priceRange) {
 
         $(data).each(function() {
             let url = 'https://www.reklama5.mk' + $(this).find('.text-left.text-info a').attr('href');
-            let date = $(this).find('.adDate').text();
-            date = date.substring(0, 6) + '. ' + date.substring(6);
+            let date = $(this).find('.adDate').text().replace(/(\r\n|\n|\r)/gm,"");
             let title = $(this).find('.SearchAdTitle').text().substr(1);
             let price = parseInt($(this).find('.text-left.text-success').text().replace('.', ''));
             const oglas = new Oglas(url, date, title, price);
 
             // Check conditions (price)
-            if(oglas.conditions) {
-                matches.push(oglas);
+            // and duplicates
+            if(oglas.conditions && !matches.find((item)=>item.title===title)) {
+                if(date.startsWith("Денес") || date.startsWith("Вчера")) {
+                    matches.unshift(oglas);
+                } else {
+                    matches.push(oglas);
+                }
             }
         });
 

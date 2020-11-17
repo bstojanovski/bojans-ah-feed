@@ -20,7 +20,9 @@ const feed = new Feed({
     }
 });
 
+// Get the scraps
 scraps = [];
+renderData = [];
 let citiesReklama5 = [305, 14];
 let citiesPazar3 = ['ohrid', 'struga'];
 let priceRange = {from: 10000, to: 35000};
@@ -41,11 +43,17 @@ scraps.forEach(function(promise) {
                 titleFormatted = (oglas.title + " - " + oglas.date + " - " + oglas.price + "€");
     
                 feed.addItem({
-                    title: titleFormatted.replace(/(\r\n|\n|\r)/gm,""),
+                    title: titleFormatted,
                     link: oglas.url,
                     description: oglas.price.toString(),
-                    content: oglas.date.replace(/(\r\n|\n|\r)/gm,"")
+                    content: oglas.date
                 });
+
+                if(oglas.date.startsWith("Денес") || oglas.date.startsWith("Вчера")) {
+                    renderData.unshift(oglas);
+                } else {
+                    renderData.push(oglas);
+                }
             });
         })
         .catch((e) => {
@@ -53,5 +61,8 @@ scraps.forEach(function(promise) {
         });
 });
 
+app.set('view engine', 'pug');
 app.get('/', (req, res) => res.set('Content-Type', 'application/rss+xml').send(feed.rss2()));
+app.get('/render', (req, res) => res.render("index", { title: "Bojan's AH Feed", scraps: renderData }));
+app.use(express.static('public'));
 app.listen(port, () => console.log('The feed is up and running on http://localhost:' + port));

@@ -18,14 +18,19 @@ async function scrapePazar3(cityID, priceRange) {
 
         $(data).each(function() {
             let url = 'https://www.pazar3.mk' + $(this).find('.title h2 a').attr('href');
-            let date = $(this).find('.title .pull-right.text-right').text();
+            let date = $(this).find('.title .pull-right.text-right').text().replace(/(\r\n|\n|\r)/gm,"");
             let title = $(this).find('.title h2 a').text();
             let price = parseInt($(this).find('.title .list-price').text().replace(' ', ''));
             const oglas = new Oglas(url, date, title, price);
-            
+
             // Check conditions (price)
-            if(oglas.conditions) {
-                matches.push(oglas);
+            // and duplicates
+            if(oglas.conditions && !matches.find((item)=>item.title===title)) {
+                if(date.startsWith("Денес") || date.startsWith("Вчера")) {
+                    matches.unshift(oglas);
+                } else {
+                    matches.push(oglas);
+                }
             }
         });
 
