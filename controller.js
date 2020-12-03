@@ -1,8 +1,30 @@
+const Feed = require('feed').Feed;
 const scrapePazar3 = require('./scrapers/pazar3.js');
 const scrapeReklama5 = require('./scrapers/reklama5.js');
 
-// Get the scraps
-async function getScraps(city, price) {
+const feed = new Feed({
+    title: "Bojans AH Feed",
+    description: "Searching for real estate via Reklama5 & Pazar3",
+    link: "https://bojanstojanovski.com/playground/ah-feed/",
+    image: "https://bojanstojanovski.com/dist/img/portret.jpg",
+    favicon: "https://bojanstojanovski.com/favicon.ico",
+    copyright: "Content belongs to Reklama5 & Pazar3",
+    author: {
+        name: "Bojan Stojanovski",
+        email: "me@bojanstojanovski.com",
+        link: "https://bojanstojanovski.com/blog/projects/apartment-hunting-rss-feed/"
+    }
+});
+
+/**
+ * Get scraps from Pazar3 and Reklama5 based on parameters provided
+ *
+ * @param city - Cities array
+ * @param price - Price range
+ * @param rss - Return RSS feed data if true
+ * @return {returnData}
+ */
+async function getScraps(city = 'ohrid,struga,tetovo,skopje', price = '10000,30000', rss = false) {
     scrapPromises = [];
     returnData = [];
 
@@ -50,6 +72,7 @@ async function getScraps(city, price) {
     // Fill up the array with data
     promisesData.forEach(function(oglasi) {
         oglasi.forEach(function(oglas) {
+
             if(oglas.date.startsWith("Денес") || oglas.date.startsWith("Вчера")) {
                 returnData.unshift(oglas);
             } else {
@@ -57,6 +80,22 @@ async function getScraps(city, price) {
             }
         });
     });
+
+    // If RSS data is needed
+    if(rss) {
+        returnData.forEach(function(oglas) {
+            titleFormatted = (oglas.title + " - " + oglas.date + " - " + oglas.price + "€");
+    
+            feed.addItem({
+                title: titleFormatted,
+                link: oglas.url,
+                description: oglas.price.toString(),
+                content: oglas.date
+            });
+        });
+
+        return feed;
+    }
         
     return returnData;
 }
