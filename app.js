@@ -6,17 +6,11 @@ const getScraps = require('./controller.js');
 let path = '/';
 
 if(env == 'production') {
-    path = '/playground/ah-feed'; // The path I use on my server
+    path = '/playground/ah-feed/'; // The path I use on my server
 }
 
 app.set('view engine', 'pug');
 app.use(path, express.static('public'));
-app.get(path + 'rss', (req, res) => {
-    getScraps(req.query.city, req.query.price, true)
-        .then(data => {
-            res.set('Content-Type', 'application/rss+xml').send(data.rss2());
-        })
-});
 app.get(path, (req, res) => {
     getScraps(req.query.city, req.query.price)
         .then(data => {
@@ -25,6 +19,20 @@ app.get(path, (req, res) => {
                 path: path,
                 scraps: data
             })
+        })
+        .catch(e => {
+            res.status(500, {
+                error: e
+            });
+        })
+        .catch((e) => {
+            console.log(e);
+        });
+});
+app.get(path + 'rss', (req, res) => {
+    getScraps(req.query.city, req.query.price, true)
+        .then(data => {
+            res.set('Content-Type', 'application/rss+xml').send(data.rss2());
         })
         .catch(e => {
             res.status(500, {
