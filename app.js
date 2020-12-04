@@ -6,7 +6,7 @@ const getScraps = require('./controller.js');
 let path = '/';
 
 if(env == 'production') {
-    path = '/playground/ah-feed/'; // The path I use on my server
+    path = '/playground/ah-feed'; // The path I use on my server
 }
 
 app.set('view engine', 'pug');
