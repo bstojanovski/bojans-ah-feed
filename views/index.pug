@@ -1,13 +1,29 @@
 html
   head
     meta(content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no", name="viewport")
-    link(rel='stylesheet', href=path+'style.css', type='text/css' )
+    link(rel='stylesheet', href='https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css', type='text/css' )
+    link(rel='stylesheet', href=path+'style.min.css', type='text/css' )
     title= title
   body
-    ul
+    nav
+        div
+            h1= "Bojan's AH Feed"
+        div
+            h4= "Search in"
+            select(name="city" multiple="multiple" required)
+                each city in citiesList
+                    option(value=city selected=(selectedCities.includes(city))) #{city.replace(city[0], city[0].toUpperCase())}
+        div
+            h4= "Max price"
+            input(type="range" name="price" value=priceRange.split(',')[1] min="0" max="100000" step="5000" oninput="num.value = this.value" required)
+            output(id="num")
+    ul(class="results")
         each oglas in scraps
-            li
-                a(href= oglas.url)
+            a(href=oglas.url target="_blank")
+                li
                     h3= oglas.title
                     span= oglas.date
                     h4= oglas.price + "€"
+  script(src='https://code.jquery.com/jquery-3.5.1.min.js')
+  script(src='https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js')
+  script(src=path+'script.min.js')

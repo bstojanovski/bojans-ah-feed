@@ -37,7 +37,7 @@ async function scrapeReklama5(cityID, priceRange) {
             }
         });
 
-        let sliceNumber = 3;
+        let sliceNumber = 5;
 
         if(cityID == 305) {
             sliceNumber = 7;

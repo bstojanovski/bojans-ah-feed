@@ -34,7 +34,7 @@ async function scrapePazar3(cityID, priceRange) {
             }
         });
 
-        let sliceNumber = 3;
+        let sliceNumber = 5;
 
         if(cityID == 'ohrid') {
             sliceNumber = 7;

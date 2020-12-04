@@ -2,7 +2,28 @@ body {
     font-family: system-ui;
 }
 
-body ul {
+nav {
+    border-bottom: 1px solid gray;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 32px;
+    margin-bottom: 24px;
+    padding: 24px 12px;
+}
+
+.select2-container {
+    width: 100%!important;
+}
+
+nav h4 {
+    margin: 6px 0;
+}
+
+nav #num::after {
+    content: "€";
+}
+
+ul.results {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-gap: 32px;
@@ -10,31 +31,36 @@ body ul {
     padding: 0;
 }
 
-body ul li {
+ul.results li {
     list-style: none;
     padding: 12px;
 }
 
-body ul li:hover {
-    background-color: #dadada;
+ul.results li:hover {
+    background-color: #f0f0f0;
 }
 
-body ul li a {
+ul.results a {
     color: #333;
     text-decoration: none;
+    margin: 0;
 }
 
-body ul li a h3,
-body ul li a h4 {
+ul.results a li h3,
+ul.results a li h4 {
     margin: 0;
 }
 
 @media screen and (max-width: 480px) {
-    body ul {
+    nav {
+        display: block;
+    }
+
+    ul.results {
         display: block;
     }
     
-    body ul li {
+    ul.results li {
         border-bottom: 1px solid #dadada;
     }
 }

@@ -12,11 +12,23 @@ if(env == 'production') {
 app.set('view engine', 'pug');
 app.use(path, express.static('public'));
 app.get(path, (req, res) => {
+    let city = req.query.city;
+    let price = req.query.price;
+    let citiesList = ['tetovo', 'skopje', 'struga', 'ohrid'];
+
+    // Redirect to default values
+    if(city == undefined) {
+        res.redirect('?city=struga,ohrid&price=10000,35000');
+    }
+
     getScraps(req.query.city, req.query.price)
         .then(data => {
             res.render("index", {
                 title: "Bojan's AH Feed", 
                 path: path,
+                selectedCities: city,
+                priceRange: price,
+                citiesList: citiesList,
                 scraps: data
             })
         })
