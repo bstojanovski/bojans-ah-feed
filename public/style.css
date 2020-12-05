@@ -4,11 +4,32 @@ body {
 
 nav {
     border-bottom: 1px solid gray;
+    color: #333;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-gap: 32px;
     margin-bottom: 24px;
     padding: 24px 12px;
+}
+
+nav a {
+    color: #333;
+    text-decoration: none;
+}
+
+nav .logo {
+    display: grid;
+    grid-template-columns: 1fr 6fr;
+}
+
+nav .logo img {
+    float: left;
+    max-width: 64px;
+}
+
+nav .logo a h1 {
+    display: inline-block;
+    margin: 16px;
 }
 
 .select2-container {
@@ -17,6 +38,41 @@ nav {
 
 nav h4 {
     margin: 6px 0;
+}
+
+nav #price-range {
+    -webkit-appearance: none;
+    width: 75%;
+    height: 16px;
+    border-radius: 5px;  
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+}
+
+nav #price-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%; 
+    background: #4CAF50;
+    cursor: pointer;
+}
+
+nav #price-range::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #4CAF50;
+    cursor: pointer;
+}
+
+nav #num {
+    float: right;
+    line-height: 18px;
 }
 
 nav #num::after {
@@ -54,6 +110,10 @@ ul.results a li h4 {
 @media screen and (max-width: 480px) {
     nav {
         display: block;
+    }
+
+    nav > div:not(:last-child) {
+        margin-bottom: 32px;
     }
 
     ul.results {

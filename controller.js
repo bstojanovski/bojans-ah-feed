@@ -1,6 +1,9 @@
 const Feed = require('feed').Feed;
+const e = require('express');
 const scrapePazar3 = require('./scrapers/pazar3.js');
 const scrapeReklama5 = require('./scrapers/reklama5.js');
+var moment = require('moment'); // require
+moment().format(); 
 
 /**
  * Get scraps from Pazar3 and Reklama5 based on parameters provided
@@ -58,14 +61,26 @@ async function getScraps(city = 'ohrid,struga,tetovo,skopje', price = '10000,300
     // Fill up the array with data
     promisesData.forEach(function(oglasi) {
         oglasi.forEach(function(oglas) {
+            moment.locale('mk');
 
-            if(oglas.date.startsWith("Денес") || oglas.date.startsWith("Вчера")) {
-                returnData.unshift(oglas);
+            if(oglas.date.startsWith("Денес")) {
+                let momentDate = moment();
+                oglas.date = momentDate;
+            } else if(oglas.date.startsWith("Вчера")) {
+                let time = moment(oglas.date, ' H:mm');
+                let momentDate = moment(time).add(-1, 'days');
+                oglas.date = momentDate;
             } else {
-                returnData.push(oglas);
+                let momentDate = moment(oglas.date, 'DD MMMM H:mm');
+                oglas.date = momentDate;
             }
+
+            returnData.push(oglas);
         });
     });
+
+    // Sort the array
+    returnData.sort((a, b) => b.date - a.date);
 
     // If RSS data is needed
     if(rss) {

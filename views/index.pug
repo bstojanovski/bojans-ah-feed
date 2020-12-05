@@ -6,8 +6,11 @@ html
     title= title
   body
     nav
-        div
-            h1= "Bojan's AH Feed"
+        div(class="logo")
+            a(href="/")
+                img(src="https://cdn.shortpixel.ai/client/q_lossless,ret_img,w_250/https://bojanstojanovski.com/blog/wp-content/uploads/2020/01/portret-circle-250.png")
+            a(href="/")
+                h1= "Bojan's AH Feed"
         div
             h4= "Search in"
             select(name="city" multiple="multiple" required)
@@ -15,14 +18,14 @@ html
                     option(value=city selected=(selectedCities.includes(city))) #{city.replace(city[0], city[0].toUpperCase())}
         div
             h4= "Max price"
-            input(type="range" name="price" value=priceRange.split(',')[1] min="0" max="100000" step="5000" oninput="num.value = this.value" required)
+            input(id="price-range" type="range" name="price" value=priceRange.split(',')[1] min="0" max="100000" step="1000" oninput="num.value = this.value" required)
             output(id="num")
     ul(class="results")
         each oglas in scraps
             a(href=oglas.url target="_blank")
                 li
                     h3= oglas.title
-                    span= oglas.date
+                    span= oglas.date.format('LLLL')
                     h4= oglas.price + "€"
   script(src='https://code.jquery.com/jquery-3.5.1.min.js')
   script(src='https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js')
