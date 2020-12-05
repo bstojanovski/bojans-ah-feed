@@ -63,6 +63,7 @@ async function getScraps(city = 'ohrid,struga,tetovo,skopje', price = '10000,300
         oglasi.forEach(function(oglas) {
             moment.locale('mk');
 
+            // Get date from scraps
             if(oglas.date.startsWith("Денес")) {
                 let momentDate = moment();
                 oglas.date = momentDate;
@@ -79,7 +80,7 @@ async function getScraps(city = 'ohrid,struga,tetovo,skopje', price = '10000,300
         });
     });
 
-    // Sort the array
+    // Sort the array by date
     returnData.sort((a, b) => b.date - a.date);
 
     // If RSS data is needed
@@ -100,13 +101,14 @@ async function getScraps(city = 'ohrid,struga,tetovo,skopje', price = '10000,300
 
         returnData.forEach(function(oglas) {
             let titleFormatted = (oglas.title + " - " + oglas.price + "€");
+            let date = oglas.date;
 
             feed.addItem({
                 title: titleFormatted,
                 id: oglas.url,
                 link: oglas.url,
-                content: oglas.price.toString(),
-                pubDate: oglas.date.format('Y-M-D HH:mm:ss')
+                content: date.format('llll') + ' - ' + oglas.price.toString(),
+                pubDate: date.format('YYYY-MM-DD H:mm:ss')
             });
         });
 

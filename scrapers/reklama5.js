@@ -29,11 +29,7 @@ async function scrapeReklama5(cityID, priceRange) {
             // Check conditions (price)
             // and duplicates
             if(oglas.conditions && !matches.find((item)=>item.title===title)) {
-                if(date.startsWith("Денес") || date.startsWith("Вчера")) {
-                    matches.unshift(oglas);
-                } else {
-                    matches.push(oglas);
-                }
+                matches.push(oglas);
             }
         });
 
