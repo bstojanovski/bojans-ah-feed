@@ -99,13 +99,14 @@ async function getScraps(city = 'ohrid,struga,tetovo,skopje', price = '10000,300
         });
 
         returnData.forEach(function(oglas) {
-            titleFormatted = (oglas.title + " - " + oglas.date + " - " + oglas.price + "€");
-    
+            let titleFormatted = (oglas.title + " - " + oglas.price + "€");
+
             feed.addItem({
                 title: titleFormatted,
+                id: oglas.url,
                 link: oglas.url,
-                description: oglas.price.toString(),
-                content: oglas.date
+                content: oglas.price.toString(),
+                pubDate: oglas.date.format('Y-M-D HH:mm:ss')
             });
         });
 
