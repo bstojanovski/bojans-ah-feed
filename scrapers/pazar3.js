@@ -28,10 +28,11 @@ async function scrapePazar3(city, priceRange) {
 
         $(data).each(function() {
             let url = 'https://www.pazar3.mk' + $(this).find('.title h2 a').attr('href');
+            let img = 'https://www.pazar3.mk' + $(this).find('.span2-ad-img-list img').attr('src');
             let date = $(this).find('.title .pull-right.text-right').text().replace(/(\r\n|\n|\r)/gm,"");
             let title = $(this).find('.title h2 a').text();
             let price = parseInt($(this).find('.title .list-price').text().replace(' ', ''));
-            const oglas = new Oglas(url, date, title, price);
+            const oglas = new Oglas(url, img, date, title, price);
 
             // Check conditions (price)
             // and duplicates
