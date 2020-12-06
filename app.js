@@ -14,14 +14,44 @@ app.use(path, express.static('public'));
 app.get(path, (req, res) => {
     let city = req.query.city;
     let price = req.query.price;
-    let citiesList = ['tetovo', 'skopje', 'struga', 'ohrid'];
+    let sortby = req.query.sortby;
+    let citiesList = {
+        tetovo: 'Тетово',
+        ohrid: 'Охрид',
+        struga: 'Струга',
+        skopje: 'Скопје',
+        gostivar: 'Гостивар',
+        veles: 'Велес',
+        prilep: 'Прилеп',
+        bitola: 'Битола',
+        kumanovo: 'Куманово',
+        svetinikole: 'Свети Николе',
+        strumica: 'Струмица',
+        kavadarci: 'Кавадарци',
+        kocani: 'Кочани',
+        kicevo: 'Кичево',
+        radovis: 'Радовиш',
+        gevgelija: 'Гевгелија',
+        debar: 'Дебар',
+        krivapalanka: 'Крива Паланка',
+        negotino: 'Неготино',
+        delcevo: 'Делчево',
+        vinica: 'Виница',
+        resen: 'Ресен',
+        stip: 'Штип',
+        probistip: 'Пробиштип',
+        berovo: 'Берово',
+        krusevo: 'Крушево',
+        valandovo: 'Валандово'
+    }
+    
 
     // Redirect to default values
     if(city == undefined) {
         res.redirect('?city=struga,ohrid&price=10000,35000');
     }
 
-    getScraps(req.query.city, req.query.price)
+    getScraps(city, price, sortby)
         .then(data => {
             res.render("index", {
                 title: "Bojan's AH Feed", 
@@ -42,7 +72,7 @@ app.get(path, (req, res) => {
         });
 });
 app.get(path + 'rss', (req, res) => {
-    getScraps(req.query.city, req.query.price, true)
+    getScraps(req.query.city, req.query.price, req.query.sortby, true)
         .then(data => {
             res.set('Content-Type', 'application/rss+xml').send(data.rss2());
         })

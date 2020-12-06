@@ -3,9 +3,19 @@ const cheerio = require('cheerio');
 const request = require('request-promise');
 const Oglas = require('../classes/oglas.js');
 
-async function scrapePazar3(cityID, priceRange) {
-    var options = {
-        uri: 'https://www.pazar3.mk/oglasi/zivealista/stanovi/se-prodava/'+ cityID +'?PriceFrom='+ priceRange.from +'&PriceTo='+ priceRange.to,
+async function scrapePazar3(city, priceRange) {
+    let citiesDash = {
+        makedonskibrod: 'makedonski-brod',
+        demirhisar: 'demir-hisar',
+        svetinikole: 'sveti-nikole'
+    };
+
+    if(citiesDash[city] !== undefined) {
+        city = citiesDash[city];
+    }
+
+    let options = {
+        uri: 'https://www.pazar3.mk/oglasi/zivealista/stanovi/se-prodava/'+ city +'?PriceFrom='+ priceRange.from +'&PriceTo='+ priceRange.to,
         transform: function(body) {
             return cheerio.load(body);
         }
@@ -30,13 +40,7 @@ async function scrapePazar3(cityID, priceRange) {
             }
         });
 
-        let sliceNumber = 5;
-
-        if(cityID == 'ohrid') {
-            sliceNumber = 7;
-        }
-
-        return matches.slice(0, sliceNumber);
+        return matches.slice(0, 5);
     } catch (error) {
         console.log(error);
     }

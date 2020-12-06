@@ -13,7 +13,7 @@ moment().format();
  * @param rss - Return RSS feed data if true
  * @return {returnData}
  */
-async function getScraps(city = 'ohrid,struga,tetovo,skopje', price = '10000,30000', rss = false) {
+async function getScraps(city = 'ohrid,struga,tetovo,skopje', price = '10000,30000', sortby = 'date', rss = false) {
     scrapPromises = [];
     returnData = [];
 
@@ -42,12 +42,6 @@ async function getScraps(city = 'ohrid,struga,tetovo,skopje', price = '10000,300
         );
 
         // Scrape Reklmata5
-        // City value mapping
-        if(city == 'ohrid') {
-            city = 305;
-        } else if(city == 'struga') {
-            city = 14;
-        }
         scrapPromises.push(scrapeReklama5(city, priceRange)
             .then(function data(e) {
                 return e;
@@ -80,8 +74,8 @@ async function getScraps(city = 'ohrid,struga,tetovo,skopje', price = '10000,300
         });
     });
 
-    // Sort the array by date
-    returnData.sort((a, b) => b.date - a.date);
+    // Sort the array using sortby parameter (date or price)
+    returnData.sort((a, b) => b[sortby] - a[sortby]);
 
     // If RSS data is needed
     if(rss) {

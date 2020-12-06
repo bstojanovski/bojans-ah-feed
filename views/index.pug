@@ -12,12 +12,12 @@ html
             a(href="/")
                 h1= "Bojan's AH Feed"
         div
-            h4= "Search in"
+            h4= "Барај во"
             select(name="city" multiple="multiple" required)
-                each city in citiesList
-                    option(value=city selected=(selectedCities.includes(city))) #{city.replace(city[0], city[0].toUpperCase())}
+                each cityName, city in citiesList
+                    option(value=city selected=(selectedCities.includes(city))) #{cityName}
         div
-            h4= "Max price"
+            h4= "Максимална цена"
             input(id="price-range" type="range" name="price" value=priceRange.split(',')[1] min="0" max="100000" step="1000" oninput="num.value = this.value" required)
             output(id="num")
     ul(class="results")
