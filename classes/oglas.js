@@ -13,7 +13,8 @@ class Oglas {
     }
 
     checkConditions() {
-        return (this.price <= 35000 && this.price > 10000);
+        let rentWords = ['издава', 'izdava', 'издавам', 'izdavam'];
+        return (!rentWords.some(word => this.title.toLowerCase().includes(word)) && this.price <= 35000 && this.price > 10000);
     }
 }
 
