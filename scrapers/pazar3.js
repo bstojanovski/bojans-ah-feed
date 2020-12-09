@@ -4,6 +4,7 @@ const request = require('request-promise');
 const Oglas = require('../classes/oglas.js');
 
 async function scrapePazar3(city, priceRange) {
+    let citySlug = city;
     let citiesDash = {
         makedonskibrod: 'makedonski-brod',
         demirhisar: 'demir-hisar',
@@ -11,11 +12,11 @@ async function scrapePazar3(city, priceRange) {
     };
 
     if(citiesDash[city] !== undefined) {
-        city = citiesDash[city];
+        citySlug = citiesDash[city];
     }
 
     let options = {
-        uri: 'https://www.pazar3.mk/oglasi/zivealista/stanovi/se-prodava/'+ city +'?PriceFrom='+ priceRange.from +'&PriceTo='+ priceRange.to,
+        uri: 'https://www.pazar3.mk/oglasi/zivealista/stanovi/se-prodava/'+ citySlug +'?PriceFrom='+ priceRange.from +'&PriceTo='+ priceRange.to,
         transform: function(body) {
             return cheerio.load(body);
         }
@@ -32,7 +33,7 @@ async function scrapePazar3(city, priceRange) {
             let date = $(this).find('.title .pull-right.text-right').text().replace(/(\r\n|\n|\r)/gm,"");
             let title = $(this).find('.title h2 a').text();
             let price = parseInt($(this).find('.title .list-price').text().replace(' ', ''));
-            const oglas = new Oglas(url, img, date, title, price);
+            const oglas = new Oglas(url, img, date, title, price, citySlug);
 
             // Check conditions (price)
             // and duplicates

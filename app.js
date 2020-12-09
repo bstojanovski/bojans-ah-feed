@@ -15,7 +15,7 @@ app.get(path, (req, res) => {
     let city = req.query.city;
     let price = req.query.price;
     let sortby = req.query.sortby;
-    let citiesList = {
+    let citiesListTranslation = {
         tetovo: 'Тетово',
         ohrid: 'Охрид',
         struga: 'Струга',
@@ -44,7 +44,6 @@ app.get(path, (req, res) => {
         krusevo: 'Крушево',
         valandovo: 'Валандово'
     }
-    
 
     // Redirect to default values
     if(city == undefined) {
@@ -58,7 +57,7 @@ app.get(path, (req, res) => {
                 path: path,
                 selectedCities: city,
                 priceRange: price,
-                citiesList: citiesList,
+                citiesListTranslation: citiesListTranslation,
                 scraps: data
             })
         })

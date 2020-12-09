@@ -107,6 +107,15 @@ ul.results a li h4 {
     margin: 0;
 }
 
+ul.results a li .price-city {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+ul.results a li .price-city h4:last-child {
+    text-align: right;
+}
+
 @media screen and (max-width: 480px) {
     nav {
         display: block;

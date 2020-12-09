@@ -14,7 +14,7 @@ html
         div
             h4= "Барај во"
             select(name="city" multiple="multiple" required)
-                each cityName, city in citiesList
+                each cityName, city in citiesListTranslation
                     option(value=city selected=(selectedCities.includes(city))) #{cityName}
         div
             h4= "Максимална цена"
@@ -26,7 +26,9 @@ html
                 li
                     h3= oglas.title
                     span= oglas.date.format('llll')
-                    h4= oglas.price + "€"
+                    div(class="price-city")
+                        h4= oglas.price + "€"
+                        h4= citiesListTranslation[oglas.city]
   script(src='https://code.jquery.com/jquery-3.5.1.min.js')
   script(src='https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js')
   script(src=path+'script.min.js')

@@ -62,7 +62,7 @@ async function scrapeReklama5(city, priceRange) {
             let date = $(this).find('.adDate').text().replace(/(\r\n|\n|\r)/gm,"");
             let title = $(this).find('.SearchAdTitle').text().substr(1);
             let price = parseInt($(this).find('.text-left.text-success').text().replace('.', ''));
-            const oglas = new Oglas(url, img, date, title, price);
+            const oglas = new Oglas(url, img, date, title, price, city);
 
             // Check conditions (price)
             // and duplicates

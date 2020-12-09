@@ -1,11 +1,12 @@
 // Oglas class
 class Oglas {
-    constructor(url, img, date, title, price) {
+    constructor(url, img, date, title, price, city) {
         this.url = url;
         this.img = img;
         this.date = date;
         this.title = title;
         this.price = price;
+        this.city = city;
     }
 
     get conditions() {
