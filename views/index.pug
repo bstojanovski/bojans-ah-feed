@@ -18,7 +18,7 @@ html
                     option(value=city selected=(selectedCities.includes(city))) #{cityName}
         div
             h4= "Максимална цена"
-            input(id="price-range" type="range" name="price" value=priceRange.split(',')[1] min="0" max="100000" step="1000" oninput="num.value = this.value" required)
+            input(id="price-range" type="range" name="price" value=priceRange.split(',')[1] min="10000" max="60000" step="1000" oninput="num.value = this.value" required)
             output(id="num")
     ul(class="results")
         each oglas in scraps

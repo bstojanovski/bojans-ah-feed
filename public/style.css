@@ -102,6 +102,10 @@ ul.results a {
     margin: 0;
 }
 
+ul.results a:visited {
+    color: #b9b9b9;
+}
+
 ul.results a li h3,
 ul.results a li h4 {
     margin: 0;
