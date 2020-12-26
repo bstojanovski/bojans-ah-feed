@@ -66,7 +66,7 @@ async function scrapeReklama5(city, priceRange) {
 
             // Check conditions (price)
             // and duplicates
-            if(oglas.conditions && !matches.find((item)=>item.title===title)) {
+            if(oglas.checkConditions(priceRange) && !matches.find((item)=>item.title===title)) {
                 matches.push(oglas);
             }
         });

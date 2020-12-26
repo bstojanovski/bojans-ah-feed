@@ -9,13 +9,9 @@ class Oglas {
         this.city = city;
     }
 
-    get conditions() {
-        return this.checkConditions();
-    }
-
-    checkConditions() {
+    checkConditions(priceRange) {
         let rentWords = ['издава', 'izdava', 'издавам', 'izdavam'];
-        return (!rentWords.some(word => this.title.toLowerCase().includes(word)) && this.price <= 35000 && this.price > 10000);
+        return (!rentWords.some(word => this.title.toLowerCase().includes(word)) && this.price >= priceRange.from && this.price <= priceRange.to);
     }
 }
 
