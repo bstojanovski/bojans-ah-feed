@@ -59,7 +59,8 @@ async function getScraps(city = 'ohrid,struga,tetovo,skopje', price = '10000,300
 
             // Get date from scraps
             if(oglas.date.startsWith("Денес")) {
-                let momentDate = moment();
+                let time = moment(oglas.date, ' H:mm');
+                let momentDate = moment(time);
                 oglas.date = momentDate;
             } else if(oglas.date.startsWith("Вчера")) {
                 let time = moment(oglas.date, ' H:mm');

@@ -54,14 +54,14 @@ async function scrapeReklama5(city, priceRange) {
     try {
         let matches = [];
         const $ = await request(options);
-        let data = $('.OglasResults');
+        let data = $('#sr-holder .row');
 
         $(data).each(function() {
-            let url = 'https://www.reklama5.mk' + $(this).find('.text-left.text-info a').attr('href');
-            let img = $(this).find('img.thumbnail').attr('src');
-            let date = $(this).find('.adDate').text().replace(/(\r\n|\n|\r)/gm,"");
+            let url = 'https://www.reklama5.mk' + $(this).find('.SearchAdTitle').attr('href');
+            let img = $(this).find('.ad-image').attr('src');
+            let date = $(this).find('.ad-date-div-1').text().replace(/(\r\n|\n|\r)/gm,"");
             let title = $(this).find('.SearchAdTitle').text().substr(1);
-            let price = parseInt($(this).find('.text-left.text-success').text().replace('.', ''));
+            let price = parseInt($(this).find('.search-ad-price').text().replace('.', ''));
             const oglas = new Oglas(url, img, date, title, price, city);
 
             // Check conditions (price)
