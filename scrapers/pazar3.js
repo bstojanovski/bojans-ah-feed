@@ -33,7 +33,7 @@ async function scrapePazar3(city, priceRange) {
             let date = $(this).find('.title .pull-right.text-right').text().replace(/(\r\n|\n|\r)/gm,"");
             let title = $(this).find('.title h2 a').text();
             let price = parseInt($(this).find('.title .list-price').text().replace(' ', ''));
-            const oglas = new Oglas(url, img, date, title, price, priceRange, citySlug);
+            const oglas = new Oglas(url, img, date, title, price, citySlug);
 
             // Check conditions (price)
             // and duplicates
