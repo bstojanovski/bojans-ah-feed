@@ -57,12 +57,13 @@ async function scrapeReklama5(city, priceRange) {
         let data = $('#sr-holder .row');
 
         $(data).each(function() {
+            let source = "reklama5";
             let url = 'https://www.reklama5.mk' + $(this).find('.SearchAdTitle').attr('href');
             let img = $(this).find('.ad-image').attr('src');
             let date = $(this).find('.ad-date-div-1').text().replace(/(\r\n|\n|\r)/gm,"");
             let title = $(this).find('.SearchAdTitle').text().substr(1);
             let price = parseInt($(this).find('.search-ad-price').text().replace('.', ''));
-            const oglas = new Oglas(url, img, date, title, price, city);
+            const oglas = new Oglas(source, url, img, date, title, price, city);
 
             // Check conditions (price)
             // and duplicates

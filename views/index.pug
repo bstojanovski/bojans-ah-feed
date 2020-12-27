@@ -24,7 +24,7 @@ html
         each oglas in scraps
             a(href=oglas.url target="_blank")
                 li
-                    h3= oglas.title
+                    h3.source(class=oglas.source)=oglas.title
                     span= oglas.date.format('llll')
                     div(class="price-city")
                         h4= oglas.price + "€"

@@ -111,6 +111,20 @@ ul.results a li h4 {
     margin: 0;
 }
 
+ul.results a li h3.source {
+    background-repeat: no-repeat;
+    background-position: right 6px;
+    padding-right: 20px;
+}
+
+ul.results a li h3.source.pazar3 {
+    background-image: url('/icons/pazar3.ico')
+}
+
+ul.results a li h3.source.reklama5 {
+    background-image: url('/icons/reklama5.ico');
+}
+
 ul.results a li .price-city {
     display: grid;
     grid-template-columns: 1fr 1fr;
