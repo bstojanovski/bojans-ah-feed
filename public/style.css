@@ -8,7 +8,7 @@ nav {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-gap: 32px;
-    margin-bottom: 24px;
+    margin-bottom: 12px;
     padding: 24px 12px;
 }
 
@@ -72,7 +72,7 @@ nav #price-range::-moz-range-thumb {
 
 nav #num {
     float: right;
-    line-height: 18px;
+    line-height: 20px;
 }
 
 nav #num::after {
@@ -89,7 +89,7 @@ ul.results {
 
 ul.results li {
     list-style: none;
-    padding: 12px;
+    padding: 12px 4px;
 }
 
 ul.results li:hover {
@@ -147,7 +147,7 @@ ul.results a li .price-city h4:last-child {
         display: block;
     }
     
-    ul.results li {
+    ul.results a:not(:last-child) li {
         border-bottom: 1px solid #dadada;
     }
 }
