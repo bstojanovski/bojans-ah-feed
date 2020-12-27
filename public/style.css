@@ -118,11 +118,11 @@ ul.results a li h3.source {
 }
 
 ul.results a li h3.source.pazar3 {
-    background-image: url('/icons/pazar3.ico')
+    background-image: url('https://www.pazar3.mk/favicon.ico')
 }
 
 ul.results a li h3.source.reklama5 {
-    background-image: url('/icons/reklama5.ico');
+    background-image: url('https://www.reklama5.mk/favicon.ico');
 }
 
 ul.results a li .price-city {
