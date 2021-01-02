@@ -92,7 +92,7 @@ app.get(path + 'cars/', (req, res) => {
     getScraps(query, city, price, sortby, type)
         .then(data => {
             res.render("cars-index", {
-                title: "Bojan's AH Feed", 
+                title: "Bojan's Cars Feed", 
                 path: path,
                 query: query,
                 selectedCities: city,
