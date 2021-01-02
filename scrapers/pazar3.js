@@ -19,17 +19,13 @@ async function scrapePazar3(type, query, city, priceRange) {
 
     let params = {
         city: '/' + citySlug,
+        searchQuery: '/q-' + query,
         queryString: 'zivealista/stanovi'
     }
 
     // Search for cars
     if(type == 'cars') {
-        // Car Brand ID mapping
-        params = {
-            city: '/' + citySlug,
-            searchQuery: '/q-' + query,
-            queryString: 'vozila/avtomobili'
-        }
+        params.queryString = 'vozila/avtomobili';
     }
 
     let options = {

@@ -117,8 +117,9 @@ app.get(path + 'rss', (req, res) => {
     let city = req.query.city;
     let price = req.query.price;
     let sortby = req.query.sortby;
+    let type = 'apartments';
 
-    getScraps(query, city, price, sortby, true)
+    getScraps(query, city, price, sortby, type, true)
         .then(data => {
             res.set('Content-Type', 'application/rss+xml').send(data.rss2());
         })

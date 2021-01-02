@@ -52,12 +52,8 @@ async function scrapeReklama5(type, query, city, priceRange) {
 
     // Search for cars
     if(type == 'cars') {
-        // Car Brand ID mapping
-        params = {
-            searchQuery: query,
-            cityID: citiesMap[city],
-            category: 24
-        }
+        params.searchQuery = query;
+        params.category = 24;
     }
 
     let options = {
