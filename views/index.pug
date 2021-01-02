@@ -28,7 +28,6 @@ html
         each oglas in scraps
             a(href=oglas.url target="_blank")
                 li
-                    img(src= oglas.img)
                     h3.source(class=oglas.source)=oglas.title
                     span= oglas.date.format('llll')
                     div(class="price-city")
