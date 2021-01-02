@@ -3,8 +3,7 @@ html
     meta(content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no", name="viewport")
     link(rel='stylesheet', href='https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css', type='text/css' )
     link(rel='stylesheet', href=path+'style.min.css', type='text/css' )
-    title=title
-    meta(charset='utf-8')
+    title= title
   body
     nav
         div(class="logo")
@@ -13,17 +12,20 @@ html
             a(href="/")
                 h1= "Bojan's AH Feed"
         div
+            h4= "Бренд и модел"
+            input(id="query" type="text" value=query name="query" onkeydown="search(this)" required)
+        div
             h4= "Барај во"
             select(name="city" multiple="multiple" required)
                 each cityName, city in citiesListTranslation
                     option(value=city selected=(selectedCities.includes(city))) #{cityName}
         div
             h4= "Максимална цена"
-            input(id="price-range" type="range" name="price" value=priceRange.split(',')[1] min="10000" max="60000" step="1000" oninput="num.value = this.value" required)
+            input(id="price-range" type="range" name="price" value=priceRange.split(',')[1] min="1000" max="30000" step="1000" oninput="num.value = this.value" required)
             output(id="num")
         div(class="switch")
-            a(href="/cars")
-                img(src="http://s3.amazonaws.com/pix.iemoji.com/images/emoji/apple/ios-12/33/0827.png")
+            a(href="/")
+                img(src="http://s3.amazonaws.com/pix.iemoji.com/andr33/0382.png")
     ul(class="results")
         each oglas in scraps
             a(href=oglas.url target="_blank")

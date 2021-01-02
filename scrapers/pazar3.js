@@ -3,20 +3,37 @@ const cheerio = require('cheerio');
 const request = require('request-promise');
 const Oglas = require('../classes/oglas.js');
 
-async function scrapePazar3(city, priceRange) {
+async function scrapePazar3(type, query, city, priceRange) {
+    // City ID mapping
+    // Default search for apartments
     let citySlug = city;
     let citiesDash = {
+        all: '',
         makedonskibrod: 'makedonski-brod',
         demirhisar: 'demir-hisar',
         svetinikole: 'sveti-nikole'
     };
-
     if(citiesDash[city] !== undefined) {
         citySlug = citiesDash[city];
     }
 
+    let params = {
+        city: '/' + citySlug,
+        queryString: 'zivealista/stanovi'
+    }
+
+    // Search for cars
+    if(type == 'cars') {
+        // Car Brand ID mapping
+        params = {
+            city: '/' + citySlug,
+            searchQuery: '/q-' + query,
+            queryString: 'vozila/avtomobili'
+        }
+    }
+
     let options = {
-        uri: 'https://www.pazar3.mk/oglasi/zivealista/stanovi/se-prodava/'+ citySlug +'?PriceFrom='+ priceRange.from +'&PriceTo='+ priceRange.to,
+        uri: 'https://www.pazar3.mk/oglasi/'+ params.queryString +'/se-prodava'+ params.city + params.searchQuery +'?PriceFrom='+ priceRange.from +'&PriceTo='+ priceRange.to,
         transform: function(body) {
             return cheerio.load(body);
         }
@@ -30,16 +47,25 @@ async function scrapePazar3(city, priceRange) {
         $(data).each(function() {
             let source = "pazar3";
             let url = 'https://www.pazar3.mk' + $(this).find('.title h2 a').attr('href');
-            let img = 'https://www.pazar3.mk' + $(this).find('.span2-ad-img-list img').attr('src');
-            let date = $(this).find('.title .pull-right.text-right').text().replace(/(\r\n|\n|\r)/gm,"");
+            let img = $(this).find('img.img-polaroid').attr('data-src');
+            if(img == 'https://www.pazar3.mk/Content/Images/skeleton.svg') {
+                img = '';
+            }
+            let date = $(this).find('.title .pull-right.text-right').text().replace(/\s/g,'');
             let title = $(this).find('.title h2 a').text();
+            let city = $(this).find('.link-html5.nobold').eq(1).text();
             let price = parseInt($(this).find('.title .list-price').text().replace(' ', ''));
-            const oglas = new Oglas(source, url, img, date, title, price, citySlug);
+            let currency = $(this).find('.title .list-price').text().split(' ')[2].replace(/(\r\n|\n|\r)/gm,"");
 
-            // Check conditions (price)
-            // and duplicates
-            if(oglas.checkConditions(priceRange) && !matches.find((item)=>item.title===title)) {
-                matches.push(oglas);
+            // Only EUR is a valid currency
+            if(currency == 'ЕУР') {
+                const oglas = new Oglas(source, url, img, date, title, price, city);
+    
+                // Check conditions (price)
+                // and duplicates
+                if(oglas.checkConditions(priceRange) && !matches.find((item)=>item.title===title)) {
+                    matches.push(oglas);
+                }
             }
         });
 

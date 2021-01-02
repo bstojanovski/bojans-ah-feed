@@ -8,12 +8,14 @@ moment().format();
 /**
  * Get scraps from Pazar3 and Reklama5 based on parameters provided
  *
+ * @param type - Determine the type of listings to get
+ * @param query - Optional search query
  * @param city - Cities array
  * @param price - Price range
  * @param rss - Return RSS feed data if true
  * @return {returnData}
  */
-async function getScraps(city = 'ohrid,struga,tetovo,skopje', price = '10000,30000', sortby = 'date', rss = false) {
+async function getScraps(query = '', city = 'ohrid,struga,tetovo,skopje', price = '10000,30000', sortby = 'date', type = 'apartments', rss = false) {
     scrapPromises = [];
     returnData = [];
 
@@ -35,14 +37,14 @@ async function getScraps(city = 'ohrid,struga,tetovo,skopje', price = '10000,300
     // Get the scrap promises for each city
     cities.forEach(function(city) {
         // Scrape Pazar3
-        scrapPromises.push(scrapePazar3(city, priceRange)
+        scrapPromises.push(scrapePazar3(type, query, city, priceRange)
             .then(function data(e) {
                 return e;
             })
         );
 
         // Scrape Reklmata5
-        scrapPromises.push(scrapeReklama5(city, priceRange)
+        scrapPromises.push(scrapeReklama5(type, query, city, priceRange)
             .then(function data(e) {
                 return e;
             })
@@ -59,15 +61,21 @@ async function getScraps(city = 'ohrid,struga,tetovo,skopje', price = '10000,300
 
             // Get date from scraps
             if(oglas.date.startsWith("Денес")) {
-                let time = moment(oglas.date, ' H:mm');
+                let time = moment(oglas.date, 'H:mm');
                 let momentDate = moment(time);
                 oglas.date = momentDate;
             } else if(oglas.date.startsWith("Вчера")) {
-                let time = moment(oglas.date, ' H:mm');
+                let time = moment(oglas.date, 'H:mm');
                 let momentDate = moment(time).add(-1, 'days');
                 oglas.date = momentDate;
             } else {
-                let momentDate = moment(oglas.date, 'DD MMMM H:mm');
+                let momentDate = moment(oglas.date, 'DD MMMM HH:mm');
+                let razlika = momentDate.diff(moment(), 'months', true);
+
+                if(razlika) {
+                    momentDate.set('year', 2019);
+                }
+
                 oglas.date = momentDate;
             }
 
