@@ -24,7 +24,7 @@ html
             input(id="price-range" type="range" name="price" value=priceRange.split(',')[1] min="1000" max="30000" step="1000" oninput="num.value = this.value" required)
             output(id="num")
         div(class="switch")
-            a(href="/")
+            a(href=path+"/")
                 img(src="http://s3.amazonaws.com/pix.iemoji.com/andr33/0382.png")
     ul(class="results")
         each oglas in scraps
