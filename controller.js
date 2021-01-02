@@ -73,7 +73,7 @@ async function getScraps(query = '', city = 'ohrid,struga,tetovo,skopje', price 
                 let razlika = momentDate.diff(moment(), 'months', true);
 
                 if(razlika) {
-                    momentDate.set('year', 2019);
+                    momentDate.set('year', 2020);
                 }
 
                 oglas.date = momentDate;
